@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{%block body%}
+
+<div>
+  <div style="text-align: center; background-color: lavender;">
+    <h1>Your Tasks</h1>
+  </div>
+          {% if alltasks|length ==0 %}
+          <br>
+          <h1 style="text-align: left; text-decoration: underline;">No Available Tasks</h1>
+          <br>
+          <a href="/add"><button type="button" class="btn btn-outline-secondary">Click Here To Add Tasks</button></a>
+          
+          {% else %}
+
+          <table class="table table-dark table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Sno</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Time created</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+
+          {%endif%}
+
+            
+          {% for Task in alltasks %}
+          <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{Task.username}}</td>
+            <td>{{Task.description}}</td>
+            <td>{{Task.date_created}}</td>
+            <td>
+              <a href="./update/{{Task.sno}}"><button type="button" class="btn btn-outline-warning">Update</button></a>
+              <a href="./delete/{{Task.sno}}"> <button type="button" class="btn btn-outline-danger">Delete</button></a></td>
+          </tr>
+          {% endfor %}
+         
+          
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+{%endblock body%}
