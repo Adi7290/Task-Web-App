@@ -48,6 +48,21 @@ def add():
         return redirect('/tasks')
     return render_template('Add.html',title='Add Task')
 
+@app.route('/update/<int:sno>',methods=['GET','POST'])
+def update(sno):
+    if request.method=='POST':
+        username = request.form['username']
+        description = request.form['description']
+        task = Tasks.query.filter_by(sno=sno).first()
+        task.username = username
+        task.description = description
+        db.session.add(task)
+        db.session.commit()
+        return redirect('/tasks')
+    task = Tasks.query.filter_by(sno=sno).first()
+    return render_template('update.html',Tasks=Tasks)
+
+
 @app.route('/tasks')
 def tasks():
     alltasks = Tasks.query.all()
